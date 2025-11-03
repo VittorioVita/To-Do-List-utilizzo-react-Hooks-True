@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useLayoutEffect, useState, useCallback, useMemo } from "react";
-import TodoContext from "../context/TodoContext";
+import TodoContext from "../context/ToDoContext";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {

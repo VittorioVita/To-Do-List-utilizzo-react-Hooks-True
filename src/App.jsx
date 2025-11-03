@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { TodoProvider } from "./context/TodoContext.jsx";
+import { TodoProvider } from "./context/ToDoContext.jsx";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import useTodos from "./hooks/useTodos";
