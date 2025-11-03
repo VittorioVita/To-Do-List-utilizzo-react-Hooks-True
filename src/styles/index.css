@@ -1,0 +1,13 @@
+:root {
+  --bg: #f8f9fb;
+  --card: #fff;
+  --accent: #0078d4;
+  --muted: #666;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: #222;
+}
