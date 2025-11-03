@@ -1,0 +1,50 @@
+# Workflow per "buildare" e "pubblicare" un sito statico su GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Esegui solo quando fai un push sul branch principale (main o master)
+  push:
+    branches: ['main'] # Cambia in 'master' se il tuo branch si chiama così
+
+  # Permette di eseguire questo workflow manualmente dalla tab "Actions"
+  workflow_dispatch:
+
+# Imposta i permessi per GITHUB_TOKEN per permettere il deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permetti un solo deploy concorrente
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Puoi cambiare la versione di Node se necessario
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Carica la cartella 'dist'
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
